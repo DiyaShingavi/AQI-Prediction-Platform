@@ -446,11 +446,10 @@ elif "ML Prediction" in page:
         "PM2.5": pm25, "PM10": pm10, "NO": no, "NO2": no2,
         "NOx": nox, "CO": co, "SO2": so2, "O3": o3,
         "PM25_roll3": pm25, "PM10_roll3": pm10,
-        "AQI_lag1":  float(city_df["AQI"].median()),
-        "AQI_roll3": float(city_df["AQI"].median()),
         "Month": month, "DayOfWeek": dow,
         "City_encoded": CITY_ENCODING[pred_city]
     }])
+    
 
     if st.button("🔍 Predict AQI"):
         pred_aqi = ml_model.predict(input_data)[0]
