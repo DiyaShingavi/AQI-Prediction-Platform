@@ -527,16 +527,11 @@ elif "LSTM" in page:
 
     try:
         from tensorflow.keras.models import load_model
-        lstm_model = load_model("lstm_aqi_model.h5",compile=False)
+        lstm_model = load_model("lstm_aqi_model.h5", compile=False)
         lstm_loaded = True
-    except:
-        try:
-            from tensorflow.keras.models import load_model
-            lstm_model = load_model("lstm_aqi_model.keras",compile=False)
-            lstm_loaded = True
-        except Exception as e:
-            lstm_loaded = False
-            lstm_err = str(e)
+    except Exception as e:
+        lstm_loaded = False
+        lstm_err = str(e)
 
     if not lstm_loaded:
         st.warning(f"⚠️ LSTM model could not load: {lstm_err}")
