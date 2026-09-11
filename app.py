@@ -393,15 +393,20 @@ elif "Pollutant" in page:
 
     st.markdown('<div class="section-header">Pollutant Distribution (Box Plot)</div>', unsafe_allow_html=True)
     fig4, ax4 = plt.subplots(figsize=(12, 4))
+    data_to_plot = [city_df[p].dropna().values for p in pollutants]
     bp = ax4.boxplot(
-        [city_df[p].dropna().values for p in pollutants],
-        labels=pollutants, patch_artist=True,
-        medianprops={"color": "#0d1117", "linewidth": 2}
+        data_to_plot,
+        tick_labels=pollutants,
+        patch_artist=True,
+        medianprops={"color": "#0d1117", "linewidth": 2},
+        boxprops={"linewidth": 1},
+        whiskerprops={"color": "#8b949e"},
+        capprops={"color": "#8b949e"},
+        flierprops={"marker": "o", "markersize": 3, "alpha": 0.4}
     )
     for patch, color in zip(bp["boxes"], PALETTE * 2):
-        patch.set_facecolor(color); patch.set_alpha(0.7)
-    for w in bp["whiskers"]: w.set_color("#8b949e")
-    for c in bp["caps"]:     c.set_color("#8b949e")
+        patch.set_facecolor(color)
+        patch.set_alpha(0.7)
     ax4.set_ylabel("Concentration")
     ax4.set_title(f"Pollutant Value Distribution — {selected_city}")
     apply_dark_style(fig4)
